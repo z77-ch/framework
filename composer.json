@@ -3,19 +3,73 @@
     "description": "Z77 framework monorepo including core, shared, persistence and frontend modules",
     "type": "metapackage",
     "license": "MIT",
+
     "authors": [
         {
           "name": "Peter Ruepp",
           "email": "peter.ruepp@z77.ch"
         }
     ],
+
     "minimum-stability": "dev",
     "prefer-stable": true,
+
     "require": {
         "php": ">=8.2",
         "z77/core": "dev-main",
         "z77/shared": "dev-main",
         "z77/persistence": "dev-main",
         "z77/module-frontend": "dev-main"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Z77\\Core\\": ["override/core/src/"],
+            "Z77\\Shared\\": ["override/shared/src/"],
+            "Z77\\Persistence\\": ["override/persistence/src/"],
+            "Z77\\Module\\Frontend\\": ["override/module/frontend/src/"]
+        }
+    },
+
+    "scripts": {
+        "post-install-cmd": [
+            "Z77\\Core\\Installer\\Install::run"
+        ],
+        "post-update-cmd": [
+            "Z77\\Core\\Installer\\Install::run"
+        ]
+    },
+
+    "config": {
+        "core-bootstrap": {
+            "htmlRoot": "public",
+            "overrideDir": "override",
+            "debug": true,
+            "timeZone": "Europe/Zurich",
+            "dataBaseDriver": "setup"
+        },
+        "core-module-manager": {
+            "frameworkPrefix": "Z77",
+            "modulePrefix": "Module"
+        },
+        "directories": {
+            "moduleTree": {
+                "controllers": "<overrideDir>/module/<module>/src/Ui/Controllers",
+                "appServices": "<overrideDir>/module/<module>/src/App/Services",
+                "domain": {
+                    "a": "<overrideDir>/module/<module>/src/Dom/Entities",
+                    "b": "<overrideDir>/module/<module>/src/Dom/Repositories",
+                    "c": "<overrideDir>/module/<module>/src/Dom/Validators",
+                    "d": "<overrideDir>/module/<module>/src/Dom/Services"
+                },
+                "res": "<overrideDir>/module/<module>/res/view/templates"
+            },
+            "logs": "logs",
+            "publicAssetTree": {
+                "asset_css": "<htmlRoot>/assets/<module>/css",
+                "asset_js": "<htmlRoot>/assets/<module>/js",
+                "asset_doc": "<htmlRoot>/docs"
+            }
+        }
     }
 }
