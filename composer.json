@@ -1,0 +1,21 @@
+{
+    "name": "z77/framework",
+    "description": "Z77 framework monorepo including core, shared, persistence and frontend modules",
+    "type": "metapackage",
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Peter Ruepp",
+          "email": "peter.ruepp@z77.ch"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "z77/core": "dev-main",
+        "z77/shared": "dev-main",
+        "z77/persistence": "dev-main",
+        "z77/module-frontend": "dev-main"
+    }
+}
